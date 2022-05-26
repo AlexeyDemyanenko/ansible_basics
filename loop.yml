@@ -1,0 +1,27 @@
+---
+ - name: using loop
+   hosts: lab
+   become: yes
+  
+   tasks:
+           - name: create msg on hosts
+             debug: msg= "Try to send message and using loop on {{ item }}"
+             loop: 
+               - "Labpc"
+               - "Ubuntu"
+               - "Centos"
+               - "RedHat"
+
+
+
+           - name: use until
+             shell: echo -n 'Z' >> testfile.txt && cat testfile.txt
+             register: output
+             delay: 2
+             retries: 10
+             until: output.stdout.find("ZZZZ") == false
+
+           - name: print final output
+             debug:
+               var: output.stdout
+             

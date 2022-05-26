@@ -1,0 +1,11 @@
+---
+- name: install apache
+  hosts: all
+  become: yes
+
+  tasks:
+          - name: instal apache web srv
+            yum: name=httpd state=lates
+
+          - name: start httpd_service
+            service: name=httpd state=started enabled=yes
